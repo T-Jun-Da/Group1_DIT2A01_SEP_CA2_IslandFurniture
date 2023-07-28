@@ -169,6 +169,36 @@
                 }).catch(function(error) {
                     console.log(error);
                 });
+
+                // GET MEMBERS INFO TO DISPLAY PROFILE INFORMATION
+                fetch(new Request('/api/getMember?email=' + member.email,
+                
+                {
+                    method: 'GET',
+                    headers: {
+                        Authorization: 'Bearer ' + authToken
+                    }
+                })).then(function (response) {
+                    console.log(response.body)
+                    return response.json();
+                }).then(function (data) {
+                    console.log(data)
+                    if(!(data == null || data == '')){
+                       document.getElementById('email').value = data.email
+                       document.getElementById('name').value = data.name
+                       document.getElementById('phone').value = data.phone
+                       document.getElementById('country').value = data.city
+                       document.getElementById('address').value = data.address
+                       document.getElementById('securityQuestion').value = data.securityQuestion
+                       document.getElementById('securityAnswer').value = data.securityAnswer
+                       document.getElementById('age').value = data.age
+                       document.getElementById('income').value = data.income
+                       //console.log(data)
+                    }
+                }).catch(function (error) {
+                    console.log(error);
+                });
+
             }, false);
 
             function addWorkDays(startDate, days) {
